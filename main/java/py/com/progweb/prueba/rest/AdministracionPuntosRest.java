@@ -1,8 +1,6 @@
 package py.com.progweb.prueba.rest;
-import py.com.progweb.prueba.ejb.ClienteDAO;
 import py.com.progweb.prueba.model.AdministracionPuntos;
 import py.com.progweb.prueba.ejb.AdministracionPuntosDAO;
-import py.com.progweb.prueba.model.Cliente;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -20,35 +18,45 @@ public class AdministracionPuntosRest {
 
 
     @GET
-    public Response listar() {
+    public Response index() {
         List<AdministracionPuntos> puntos = administracionPuntosDAO.findAll();
         return Response.ok(puntos).build();
     }
 
     @GET
     @Path("/{id}")
-    public Response obtener(@PathParam("id") Long id) {
+    public Response show(@PathParam("id") Long id) {
         AdministracionPuntos administracionPuntos = administracionPuntosDAO.findById(id);
         return Response.ok(administracionPuntos).build();
     }
 
     @POST
-    public Response agregar(AdministracionPuntos administracionPuntos) {
+    public Response store(AdministracionPuntos administracionPuntos) {
         administracionPuntosDAO.save(administracionPuntos);
         return Response.ok(administracionPuntos).build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response modificar(@PathParam("id") Long id, AdministracionPuntos administracionPuntos) {
-        administracionPuntos.setId(id);
-        administracionPuntosDAO.update(administracionPuntos);
-        return Response.ok(administracionPuntos).build();
+    public Response update(@PathParam("id") Long id, AdministracionPuntos administracionPuntos) {
+        try {
+
+            AdministracionPuntos administracionExistente = administracionPuntosDAO.findById(id);
+
+            if (administracionExistente == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+            administracionPuntosDAO.update(administracionExistente, administracionPuntos);
+        }catch (Exception e){
+            return Response.status(500).entity(e.getMessage()).build();
+        }
+        return Response.ok().build();
     }
 
     @DELETE
     @Path("/{id}")
-    public Response eliminar(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") Long id) {
         AdministracionPuntos administracionPuntos = administracionPuntosDAO.findById(id);
         administracionPuntosDAO.delete(administracionPuntos);
         return Response.noContent().build();

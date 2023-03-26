@@ -17,9 +17,9 @@ public class ClienteRest {
     ClienteDAO clienteDAO;
 
     @GET
-    public Response listar() {
+    public Response index() {
         try {
-            List<Cliente> clientes = clienteDAO.listar();
+            List<Cliente> clientes = clienteDAO.findAll();
             return Response.ok(clientes).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
@@ -28,9 +28,9 @@ public class ClienteRest {
 
     @GET
     @Path("/{id}")
-    public Response obtener(@PathParam("id") int id) {
+    public Response show(@PathParam("id") int id) {
         try{
-            Cliente cliente = clienteDAO.obtener(id);
+            Cliente cliente = clienteDAO.findById(id);
             if (cliente == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -42,9 +42,9 @@ public class ClienteRest {
 
     @POST
     @Path("/")
-    public Response agregar(Cliente cliente) {
+    public Response store(Cliente cliente) {
         try{
-            clienteDAO.agregar(cliente);
+            clienteDAO.save(cliente);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
@@ -53,16 +53,16 @@ public class ClienteRest {
 
     @PUT
     @Path("/{id}")
-    public Response modificar(@PathParam("id") int id, Cliente cliente) {
+    public Response update(@PathParam("id") int id, Cliente cliente) {
         try {
 
-            Cliente clienteExistente = clienteDAO.obtener(id);
+            Cliente clienteExistente = clienteDAO.findById(id);
 
             if (clienteExistente == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
 
-            clienteDAO.modificar(clienteExistente, cliente);
+            clienteDAO.update(clienteExistente, cliente);
         }catch (Exception e){
             return Response.status(500).entity(e.getMessage()).build();
         }
@@ -71,13 +71,13 @@ public class ClienteRest {
 
     @DELETE
     @Path("/{id}")
-    public Response eliminar(@PathParam("id") int id) {
+    public Response delete(@PathParam("id") int id) {
         try{
-            Cliente cliente = clienteDAO.obtener(id);
+            Cliente cliente = clienteDAO.findById(id);
             if (cliente == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
-            clienteDAO.eliminar(cliente);
+            clienteDAO.delete(cliente);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()+e.getCause()).build();

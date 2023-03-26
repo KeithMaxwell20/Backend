@@ -5,14 +5,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import py.com.progweb.prueba.implementations.GeneralABMFunction;
 import py.com.progweb.prueba.model.AdministracionPuntos;
-import py.com.progweb.prueba.model.Cliente;
 
 import java.util.List;
 
 
 @Stateless
-public class AdministracionPuntosDAO {
+public class AdministracionPuntosDAO extends GeneralABMFunction <AdministracionPuntos> {
 
     @PersistenceContext
     private EntityManager em;
@@ -27,10 +27,6 @@ public class AdministracionPuntosDAO {
 
     public void save(AdministracionPuntos administracionPuntos) {
         em.persist(administracionPuntos);
-    }
-
-    public void update(AdministracionPuntos administracionPuntos) {
-        em.merge(administracionPuntos);
     }
 
     public void delete(AdministracionPuntos administracionPuntos) {

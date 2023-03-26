@@ -17,7 +17,7 @@ public class PersonaRest {
 
     @GET
     @Path("/")
-    public Response listar(){
+    public Response list(){
         return Response.ok(personaDAO.lista()).build();
     }
 

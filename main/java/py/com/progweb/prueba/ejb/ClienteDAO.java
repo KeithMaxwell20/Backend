@@ -15,23 +15,21 @@ public class ClienteDAO extends GeneralABMFunction<Cliente> {
     public ClienteDAO() {
     }
 
-    public void agregar(Cliente cliente) {
+    public Cliente findById(int id) {
+        return em.find(Cliente.class, id);
+    }
+    public void save(Cliente cliente) {
         em.persist(cliente);
     }
 
-    public void eliminar(Cliente cliente) {
+    public void delete(Cliente cliente) {
         int id = cliente.getId();
         Cliente c = em.find(Cliente.class, id);
         if (c != null) {
             em.remove(c);
         }
     }
-
-    public Cliente obtener(int id) {
-        return em.find(Cliente.class, id);
-    }
-
-    public List<Cliente> listar() {
+    public List<Cliente> findAll() {
         TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c", Cliente.class);
         return query.getResultList();
     }

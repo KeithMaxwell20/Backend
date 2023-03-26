@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 public class GeneralABMFunction<T> {
     @PersistenceContext(unitName = "pruebaPU")
     private EntityManager em;
-    public void modificar(T existingClient, T updatedClient) throws IllegalAccessException {
+    public void update(T existingClient, T updatedClient) throws IllegalAccessException {
         // Iterate through the fields of the updated Client object
         for (Field field : existingClient.getClass().getDeclaredFields()) {
             // Set the field to be accessible, as it may be private or protected
