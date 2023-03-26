@@ -24,7 +24,7 @@ public class ClienteRest {
 
     @GET
     @Path("/{id}")
-    public Response obtener(@PathParam("id") Long id) {
+    public Response obtener(@PathParam("id") int id) {
         Cliente cliente = clienteDAO.obtener(id);
         if (cliente == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -40,7 +40,7 @@ public class ClienteRest {
 
     @PUT
     @Path("/{id}")
-    public Response modificar(@PathParam("id") Long id, Cliente cliente) {
+    public Response modificar(@PathParam("id") int id, Cliente cliente) {
         Cliente clienteExistente = clienteDAO.obtener(id);
         if (clienteExistente == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -52,7 +52,7 @@ public class ClienteRest {
 
     @DELETE
     @Path("/{id}")
-    public Response eliminar(@PathParam("id") Long id) {
+    public Response eliminar(@PathParam("id") int id) {
         Cliente cliente = clienteDAO.obtener(id);
         if (cliente == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

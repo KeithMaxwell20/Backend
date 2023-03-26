@@ -7,9 +7,9 @@ import java.util.Date;
 @Table(name = "cliente")
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_id_seq")
-    @SequenceGenerator(name = "cliente_id_seq", sequenceName = "cliente_id_seq", allocationSize = 0)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
+    @SequenceGenerator(name = "id", sequenceName = "cliente_id_seq", allocationSize = 0)
+    private int id;
 
     @Column(name = "nombre")
     private String nombre;
@@ -17,7 +17,7 @@ public class Cliente {
     @Column(name = "apellido")
     private String apellido;
 
-    @Column(name = "numero_documento")
+    @Column(name = "ci")
     private String numeroDocumento;
 
     @Column(name = "tipo_documento")
@@ -37,11 +37,11 @@ public class Cliente {
     private Date fechaNacimiento;
 
     // Getters y setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
