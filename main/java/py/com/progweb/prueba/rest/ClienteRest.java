@@ -41,6 +41,7 @@ public class ClienteRest {
     }
 
     @POST
+    @Path("/")
     public Response agregar(Cliente cliente) {
         try{
             clienteDAO.agregar(cliente);
