@@ -30,7 +30,11 @@ public class AdministracionPuntosDAO extends GeneralABMFunction <AdministracionP
     }
 
     public void delete(AdministracionPuntos administracionPuntos) {
-        em.remove(administracionPuntos);
+        long id = administracionPuntos.getId();
+        AdministracionPuntos punto = em.find(AdministracionPuntos.class, id);
+        if (punto != null) {
+            em.remove(punto);
+        }
     }
 
     public List<AdministracionPuntos> findAll() {
