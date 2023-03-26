@@ -54,17 +54,19 @@ public class ClienteRest {
     @PUT
     @Path("/{id}")
     public Response modificar(@PathParam("id") int id, Cliente cliente) {
-        try{
+        try {
+
             Cliente clienteExistente = clienteDAO.obtener(id);
+
             if (clienteExistente == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
-            cliente.setId(id);
-            clienteDAO.modificar(cliente);
-            return Response.ok().build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
+
+            clienteDAO.modificar(clienteExistente, cliente);
+        }catch (Exception e){
+            return Response.status(500).entity(e.getMessage()).build();
         }
+        return Response.ok().build();
     }
 
     @DELETE

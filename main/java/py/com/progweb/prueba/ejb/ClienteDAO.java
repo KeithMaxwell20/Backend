@@ -1,13 +1,15 @@
 package py.com.progweb.prueba.ejb;
+import py.com.progweb.prueba.implementations.GeneralABMFunction;
 import py.com.progweb.prueba.model.Cliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.TypedQuery;
 
 @Stateless
-public class ClienteDAO {
+public class ClienteDAO extends GeneralABMFunction {
     @PersistenceContext(unitName = "pruebaPU")
     private EntityManager em;
 
@@ -16,10 +18,6 @@ public class ClienteDAO {
 
     public void agregar(Cliente cliente) {
         em.persist(cliente);
-    }
-
-    public void modificar(Cliente cliente) {
-        em.merge(cliente);
     }
 
     public void eliminar(Cliente cliente) {

@@ -1,6 +1,9 @@
 package py.com.progweb.prueba.model;
 
+import org.hibernate.mapping.Array;
+
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity
@@ -108,4 +111,5 @@ public class Cliente {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+
 }
