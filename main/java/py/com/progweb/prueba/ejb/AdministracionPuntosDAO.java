@@ -1,2 +1,44 @@
-package py.com.progweb.prueba.ejb;public class AdministracionPuntosDAO {
+package py.com.progweb.prueba.ejb;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+import py.com.progweb.prueba.model.AdministracionPuntos;
+import py.com.progweb.prueba.model.Cliente;
+
+import java.util.List;
+
+
+@Stateless
+public class AdministracionPuntosDAO {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    public AdministracionPuntosDAO(){
+
+    }
+
+    public AdministracionPuntos findById(Long id) {
+        return em.find(AdministracionPuntos.class, id);
+    }
+
+    public void save(AdministracionPuntos administracionPuntos) {
+        em.persist(administracionPuntos);
+    }
+
+    public void update(AdministracionPuntos administracionPuntos) {
+        em.merge(administracionPuntos);
+    }
+
+    public void delete(AdministracionPuntos administracionPuntos) {
+        em.remove(administracionPuntos);
+    }
+
+    public List<AdministracionPuntos> findAll() {
+        TypedQuery<AdministracionPuntos> query = em.createQuery("SELECT a FROM AdministracionPuntos a", AdministracionPuntos.class);
+        return query.getResultList();
+    }
 }
