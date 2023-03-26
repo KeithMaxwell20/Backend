@@ -33,6 +33,7 @@ public class ClienteRest {
     }
 
     @POST
+    @Path("/")
     public Response agregar(Cliente cliente) {
         clienteDAO.agregar(cliente);
         return Response.status(Response.Status.CREATED).build();
