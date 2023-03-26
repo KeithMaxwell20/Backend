@@ -1,7 +1,4 @@
 package py.com.progweb.prueba.implementations;
-
-import py.com.progweb.prueba.model.Cliente;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.lang.reflect.Field;

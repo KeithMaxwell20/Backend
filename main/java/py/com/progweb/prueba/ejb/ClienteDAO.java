@@ -4,7 +4,6 @@ import py.com.progweb.prueba.model.Cliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.TypedQuery;
 
