@@ -23,7 +23,11 @@ public class ClienteDAO {
     }
 
     public void eliminar(Cliente cliente) {
-        em.remove(cliente);
+        int id = cliente.getId();
+        Cliente c = em.find(Cliente.class, id);
+        if (c != null) {
+            em.remove(c);
+        }
     }
 
     public Cliente obtener(int id) {

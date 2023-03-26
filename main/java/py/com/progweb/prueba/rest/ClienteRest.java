@@ -18,46 +18,66 @@ public class ClienteRest {
 
     @GET
     public Response listar() {
-        List<Cliente> clientes = clienteDAO.listar();
-        return Response.ok(clientes).build();
+        try {
+            List<Cliente> clientes = clienteDAO.listar();
+            return Response.ok(clientes).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
+        }
     }
 
     @GET
     @Path("/{id}")
     public Response obtener(@PathParam("id") int id) {
-        Cliente cliente = clienteDAO.obtener(id);
-        if (cliente == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        try{
+            Cliente cliente = clienteDAO.obtener(id);
+            if (cliente == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(cliente).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
         }
-        return Response.ok(cliente).build();
     }
 
     @POST
     public Response agregar(Cliente cliente) {
-        clienteDAO.agregar(cliente);
-        return Response.status(Response.Status.CREATED).build();
+        try{
+            clienteDAO.agregar(cliente);
+            return Response.status(Response.Status.CREATED).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
+        }
     }
 
     @PUT
     @Path("/{id}")
     public Response modificar(@PathParam("id") int id, Cliente cliente) {
-        Cliente clienteExistente = clienteDAO.obtener(id);
-        if (clienteExistente == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        try{
+            Cliente clienteExistente = clienteDAO.obtener(id);
+            if (clienteExistente == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            cliente.setId(id);
+            clienteDAO.modificar(cliente);
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
         }
-        cliente.setId(id);
-        clienteDAO.modificar(cliente);
-        return Response.ok().build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response eliminar(@PathParam("id") int id) {
-        Cliente cliente = clienteDAO.obtener(id);
-        if (cliente == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        try{
+            Cliente cliente = clienteDAO.obtener(id);
+            if (cliente == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            clienteDAO.eliminar(cliente);
+            return Response.noContent().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()+e.getCause()).build();
         }
-        clienteDAO.eliminar(cliente);
-        return Response.noContent().build();
     }
 }
