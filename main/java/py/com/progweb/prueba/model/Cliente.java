@@ -1,9 +1,6 @@
 package py.com.progweb.prueba.model;
 
-import org.hibernate.mapping.Array;
-
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Date;
 
 @Entity
