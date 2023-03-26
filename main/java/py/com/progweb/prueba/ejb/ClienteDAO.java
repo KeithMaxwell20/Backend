@@ -9,7 +9,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 
 @Stateless
-public class ClienteDAO extends GeneralABMFunction {
+public class ClienteDAO extends GeneralABMFunction<Cliente> {
     @PersistenceContext(unitName = "pruebaPU")
     private EntityManager em;
 
