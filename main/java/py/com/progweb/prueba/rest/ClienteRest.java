@@ -9,12 +9,12 @@ import py.com.progweb.prueba.model.Cliente;
 import py.com.progweb.prueba.ejb.ClienteDAO;
 
 
-@Path("/clientes")
+@Path("clientes")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ClienteRest {
     @Inject
-    private ClienteDAO clienteDAO;
+    ClienteDAO clienteDAO;
 
     @GET
     public Response listar() {

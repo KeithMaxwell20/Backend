@@ -15,12 +15,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-
+@Stateless
 public class ClienteDAO {
+    @PersistenceContext(unitName = "pruebaPU")
     private EntityManager em;
 
-    public ClienteDAO(EntityManager em) {
-        this.em = em;
+    public ClienteDAO() {
     }
 
     public void agregar(Cliente cliente) {
