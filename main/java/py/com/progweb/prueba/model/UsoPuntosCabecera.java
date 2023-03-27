@@ -1,5 +1,8 @@
 package py.com.progweb.prueba.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +17,7 @@ public class UsoPuntosCabecera {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
 
     @Column(name = "fecha")

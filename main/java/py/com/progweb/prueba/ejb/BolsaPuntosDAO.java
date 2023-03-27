@@ -14,15 +14,13 @@ public class BolsaPuntosDAO extends GeneralABMFunction<BolsaPuntos> {
     @PersistenceContext
     private EntityManager em;
 
-    @Inject
-    ClienteDAO clienteDAO;
     public BolsaPuntosDAO() {
     }
 
     public BolsaPuntos findById(int id) {
         return em.find(BolsaPuntos.class, id);
     }
-    public void save(BolsaPuntos bolsaPuntos) {;
+    public void save(BolsaPuntos bolsaPuntos) {
         em.persist(bolsaPuntos);
     }
 

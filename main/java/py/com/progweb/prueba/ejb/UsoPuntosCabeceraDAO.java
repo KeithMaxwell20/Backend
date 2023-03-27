@@ -13,16 +13,13 @@ import java.util.List;
 public class UsoPuntosCabeceraDAO extends GeneralABMFunction<UsoPuntosCabecera> {
     @PersistenceContext
     private EntityManager em;
-
-    @Inject
-    ClienteDAO clienteDAO;
     public UsoPuntosCabeceraDAO() {
     }
 
     public UsoPuntosCabecera findById(int id) {
         return em.find(UsoPuntosCabecera.class, id);
     }
-    public void save(UsoPuntosCabecera usoPuntosCabecera) {;
+    public void save(UsoPuntosCabecera usoPuntosCabecera) {
         em.persist(usoPuntosCabecera);
     }
 

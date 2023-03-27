@@ -1,5 +1,7 @@
 package py.com.progweb.prueba.model;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.util.Date;
 
