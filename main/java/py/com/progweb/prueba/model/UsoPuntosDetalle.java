@@ -6,8 +6,8 @@ import java.util.Date;
 @Table(name = "uso_puntos_detalle")
 public class UsoPuntosDetalle {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uso_puntos_detalle_id")
-    @SequenceGenerator(name = "uso_puntos_detalle_id", sequenceName = "uso_puntos_detalle_id_seq", allocationSize = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uso_puntos_detalles_id")
+    @SequenceGenerator(name = "uso_puntos_detalles_id", sequenceName = "uso_puntos_detalles_id_seq", allocationSize = 0)
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -19,6 +19,18 @@ public class UsoPuntosDetalle {
     private BolsaPuntos bolsaPuntos;
     @Column(name = "puntaje_utilizado")
     private int puntajeUtilizado;
+
+    //Constructor
+    public UsoPuntosDetalle() {}
+
+    //Constructor.
+    public UsoPuntosDetalle(UsoPuntosCabecera usoPuntosCabecera, BolsaPuntos bolsaPuntos, int puntajeUtilizado) {
+        this.usoPuntosCabecera = usoPuntosCabecera;
+        this.bolsaPuntos = bolsaPuntos;
+        this.puntajeUtilizado = puntajeUtilizado;
+    }
+
+
     public int getId() {
         return id;
     }
