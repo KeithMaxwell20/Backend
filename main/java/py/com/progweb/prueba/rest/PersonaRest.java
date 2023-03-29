@@ -28,10 +28,3 @@ public class PersonaRest {
         return Response.ok().build();
     }
 }
-
-
-
-
-
-
-
