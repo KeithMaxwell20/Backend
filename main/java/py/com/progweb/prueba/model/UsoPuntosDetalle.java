@@ -3,7 +3,7 @@ package py.com.progweb.prueba.model;
 import javax.persistence.*;
 import java.util.Date;
 @Entity
-@Table(name = "uso_puntos_detalle")
+@Table(name = "uso_puntos_detalles")
 public class UsoPuntosDetalle {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uso_puntos_detalles_id")
