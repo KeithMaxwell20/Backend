@@ -40,17 +40,6 @@ public class BolsaPuntosRest {
         }
     }
 
-    @POST
-    @Path("/")
-    public Response store(BolsaPuntos bolsaPuntos) {
-        try{
-            bolsaPuntosDAO.save(bolsaPuntos);
-            return Response.status(Response.Status.CREATED).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
-        }
-    }
-
     @PUT
     @Path("/{id}")
     public Response update(@PathParam("id") int id, BolsaPuntos bolsaPuntos) {

@@ -12,7 +12,7 @@ public class UsoPuntosCabecera {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "uso_puntos_cabecera_id")
-    @SequenceGenerator(name = "uso_puntos_cabecera_id", sequenceName = "puntos_cabecera_id_seq", allocationSize = 0)
+    @SequenceGenerator(name = "uso_puntos_cabecera_id", sequenceName = "uso_puntos_cabecera_id_seq", allocationSize = 0)
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -30,10 +30,13 @@ public class UsoPuntosCabecera {
     @Column(name = "puntaje_utilizado")
     private int puntajeUtilizado;
 
-    // Getters y Setters
+    public UsoPuntosCabecera() {}
 
-    public UsoPuntosCabecera(){
-
+    public UsoPuntosCabecera(Cliente cliente, int puntajeUtilizado, Date fecha, AdministracionPuntos conceptoUso){
+        this.cliente = cliente;
+        this.puntajeUtilizado = puntajeUtilizado;
+        this.fecha = fecha;
+        this.conceptoUso = conceptoUso;
     }
     public int getId() {
         return id;

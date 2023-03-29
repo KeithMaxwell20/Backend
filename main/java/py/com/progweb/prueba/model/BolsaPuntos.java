@@ -33,6 +33,21 @@ public class BolsaPuntos {
     @Column(name = "monto_operacion")
     private int montoOperacion;
 
+    //Constructor
+    public BolsaPuntos() {}
+
+    //Constructor
+    public BolsaPuntos(Cliente cliente, Date fechaAsignacion, Date fechaCaducidad, int puntajeAsignado, int puntajeUtilizado, int saldoPuntos, int montoOperacion) {
+        this.cliente = cliente;
+        this.fechaAsignacion = fechaAsignacion;
+        this.fechaCaducidad = fechaCaducidad;
+        this.puntajeAsignado = puntajeAsignado;
+        this.puntajeUtilizado = puntajeUtilizado;
+        this.saldoPuntos = saldoPuntos;
+        this.montoOperacion = montoOperacion;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -40,7 +55,6 @@ public class BolsaPuntos {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public Date getFechaAsignacion() {
         return fechaAsignacion;

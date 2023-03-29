@@ -1,5 +1,8 @@
 package py.com.progweb.prueba.ejb;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import py.com.progweb.prueba.implementations.GeneralABMFunction;
 import py.com.progweb.prueba.model.ReglaPuntos;
 
@@ -22,6 +25,19 @@ public class ReglaPuntoDAO extends GeneralABMFunction<ReglaPuntos> {
     }
     public void save(ReglaPuntos reglaPunto) {
         em.persist(reglaPunto);
+    }
+
+    /***
+     * Calcula el equivalente en puntos de una cantidad dada, de acuerdo a las reglas de puntos ya definidas.
+     * @param amount Cantidad de la cual hallar su equivalencia.
+     * @return Entero representando la cantidad de puntos.
+     */
+    public int checkAmountPoints(int monto) {
+        ReglaPuntos reglaPuntos = em.createQuery("from ReglaPuntos r " +
+                "where r.limiteInferior <= :monto and r.limiteSuperior >= :monto", ReglaPuntos.class)
+                .setParameter("monto", monto)
+                .getSingleResult();
+        return Math.floorDiv(monto, reglaPuntos.getMontoEquivalencia());
     }
 
     public void delete(ReglaPuntos reglaPunto) {
