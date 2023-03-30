@@ -12,14 +12,8 @@ import org.json.simple.parser.JSONParser;
 import py.com.progweb.prueba.ejb.BolsaPuntosDAO;
 import py.com.progweb.prueba.ejb.ReglaPuntoDAO;
 import py.com.progweb.prueba.ejb.UsoPuntosCabeceraDAO;
-import py.com.progweb.prueba.model.BolsaPuntos;
-import py.com.progweb.prueba.model.UsoPuntosCabecera;
 
 import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("servicio")
 @Consumes(MediaType.APPLICATION_JSON)

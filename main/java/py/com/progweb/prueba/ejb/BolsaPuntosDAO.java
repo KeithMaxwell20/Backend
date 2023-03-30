@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,13 +15,12 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import py.com.progweb.prueba.model.Cliente;
 import py.com.progweb.prueba.model.ReglaPuntos;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 @Stateless
 public class BolsaPuntosDAO extends GeneralABMFunction<BolsaPuntos> {
     @PersistenceContext
-    private EntityManager em;
+    EntityManager em;
 
     public BolsaPuntosDAO() {
     }
@@ -73,7 +71,7 @@ public class BolsaPuntosDAO extends GeneralABMFunction<BolsaPuntos> {
         // Agregamos la cantidad de puntos correcta.
         BolsaPuntos bolsa = new BolsaPuntos(cliente, fechaAsignacion.getTime(), fechaVencimiento.getTime(), cantPuntos, 0, cantPuntos,  monto.intValue());
 
-        System.out.println("La bolsa de puntos a guardar es: " + bolsa.toString());
+        System.out.println("La bolsa de puntos a guardar es: " + bolsa);
         // Guardamos la bolsa
         em.persist(bolsa);
     }
