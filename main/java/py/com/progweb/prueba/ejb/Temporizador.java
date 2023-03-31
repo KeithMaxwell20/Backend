@@ -16,7 +16,7 @@ public class Temporizador {
     private EntityManager em;
 
 
-    @Schedule(minute = "*", hour = "*", second = "0/15")
+    @Schedule(minute = "0", hour = "1/1", second = "0")
     public void updateSaldo() {
         try {
             System.out.println(new Date() + ": Verificando vencimiento de las bolsas...");
