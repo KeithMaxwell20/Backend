@@ -1,9 +1,6 @@
 package py.com.progweb.prueba.ejb;
 
 import java.util.Properties;
-
-import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -18,8 +15,6 @@ public class Email {
     public void sendEmail(String enviarA, String encabezado, String texto) {
 
         System.out.println("Enviando a: " + enviarA + "\nEncabezado: " + encabezado + "\nTexto: " + texto);
-        // Recipient's email ID needs to be mentioned.
-//        String to = "arturojeich@gmail.com";
 
         // Sender's email ID needs to be mentioned
         String from = "pruebaemailbackend@gmail.com";
@@ -43,7 +38,6 @@ public class Email {
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 
             protected PasswordAuthentication getPasswordAuthentication() {
-                //nUcrc83LbPQLAbB
                 return new PasswordAuthentication("pruebaemailbackend@gmail.com", "asegcccrdepdwrch");
 
             }
@@ -63,12 +57,7 @@ public class Email {
             // Set To: header field of the header.
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(enviarA));
 
-            // Set Subject: header field
-//            message.setSubject("This is the Subject Line!");
             message.setSubject(encabezado);
-
-            // Now set the actual message
-//            message.setText("This is actual message");
             message.setText(texto);
 
             System.out.println("Enviando email...");
