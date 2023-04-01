@@ -16,7 +16,9 @@ public class Temporizador {
     private EntityManager em;
 
 
-    @Schedule(minute = "0", hour = "1/1", second = "0")
+    // Cada hora: * 0 *
+    // Cada 15 segundos: * * 15/15
+    @Schedule(minute = "*", hour = "0", second = "*")
     public void updateSaldo() {
         try {
             System.out.println(new Date() + ": Verificando vencimiento de las bolsas...");
@@ -34,7 +36,7 @@ public class Temporizador {
         Calendar fechaActual = Calendar.getInstance();
         fechaActual.setTime(new Date()); // Fecha Actual
         return em.createQuery("from BolsaPuntos b " +
-                        "where b.fechaCaducidad < :actual and b.saldoPuntos > 0", BolsaPuntos.class)
+                        "where b.planificacion.fechaFin < :actual and b.saldoPuntos > 0", BolsaPuntos.class)
                 .setParameter("actual", fechaActual.getTime())
                 .getResultList();
     }

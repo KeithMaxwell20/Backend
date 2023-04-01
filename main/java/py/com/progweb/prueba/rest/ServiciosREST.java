@@ -1,9 +1,6 @@
 package py.com.progweb.prueba.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -12,6 +9,8 @@ import org.json.simple.parser.JSONParser;
 import py.com.progweb.prueba.ejb.BolsaPuntosDAO;
 import py.com.progweb.prueba.ejb.ReglaPuntoDAO;
 import py.com.progweb.prueba.ejb.UsoPuntosCabeceraDAO;
+import py.com.progweb.prueba.ejb.VencimientoPuntosDAO;
+import py.com.progweb.prueba.model.Cliente;
 
 import javax.inject.Inject;
 
@@ -28,6 +27,12 @@ public class ServiciosREST {
 
     @Inject
     ReglaPuntoDAO reglaPuntoDAO;
+
+    @Inject
+    VencimientoPuntosDAO vencimientoPuntosDAO;
+
+    @Inject
+    Cliente cliente;
 
     @POST
     @Path("/carga-puntos")
@@ -48,7 +53,7 @@ public class ServiciosREST {
                     Response.status(Response.Status.CREATED).entity("{ \"message\": \"Transaction accepted!\" }").build() :
                     Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"Not enough points left for this transaction!\" }").build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": " + "\"An error ocurred while using points: " + e.getMessage() + "\" }").build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": " + "\"An error occurred while using points: " + e.getMessage() + "\" }").build();
         }
     }
 
@@ -64,7 +69,26 @@ public class ServiciosREST {
             json.put("puntos", cantPuntos);
             return Response.ok(json).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"An error ocurred while consulting points: " + e.getMessage() + "\" }").build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"An error occurred while consulting points: " + e.getMessage() + "\" }").build();
+        }
+    }
+
+    @PUT
+    @Path("/actualizar-vencimiento")
+    public Response updateExpirationDate(String jsonString) {
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(jsonString);
+
+            //mm-dd-yyyy
+            String fecha = (String) json.get("vencimiento");
+            Long id = (Long) json.get("id");
+
+            return vencimientoPuntosDAO.updatingExpirationDate(fecha, id) ?
+                    Response.ok().entity("{ \"message\": \"Expiration date updated successfully!\" }").build() :
+                    Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"An error occurred. Cannot update the expiration date.\" }").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"An error occurred while updating expiration date: " + e.getMessage() + "\" }").build();
         }
     }
 }

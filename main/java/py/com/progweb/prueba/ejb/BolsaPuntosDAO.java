@@ -15,6 +15,7 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import py.com.progweb.prueba.model.Cliente;
 import py.com.progweb.prueba.model.ReglaPuntos;
+import py.com.progweb.prueba.model.VencimientoPuntos;
 
 
 @Stateless
@@ -60,20 +61,43 @@ public class BolsaPuntosDAO extends GeneralABMFunction<BolsaPuntos> {
                 .setParameter("id", id.intValue())
                 .getSingleResult();
 
-        //TO-DO: Definir cual es la fecha de vencimiento a usar.
         Calendar fechaAsignacion = Calendar.getInstance();
         fechaAsignacion.setTime(new Date()); // Fecha Actual
 
         Calendar fechaVencimiento = Calendar.getInstance();
         fechaVencimiento.setTime(fechaAsignacion.getTime());
         fechaVencimiento.add(Calendar.DAY_OF_MONTH, 15); // Agregando dias
+        int cantidadDias = 15;
+        VencimientoPuntos planificacion = new VencimientoPuntos(fechaAsignacion.getTime(), fechaVencimiento.getTime(), cantidadDias);
 
         // Agregamos la cantidad de puntos correcta.
-        BolsaPuntos bolsa = new BolsaPuntos(cliente, fechaAsignacion.getTime(), fechaVencimiento.getTime(), cantPuntos, 0, cantPuntos,  monto.intValue());
+        BolsaPuntos bolsa = new BolsaPuntos(cliente, planificacion, cantPuntos, 0, cantPuntos,  monto.intValue());
 
         System.out.println("La bolsa de puntos a guardar es: " + bolsa);
+
+        // Guardamos vencimientoPuntos
+        em.persist(planificacion);
+
         // Guardamos la bolsa
         em.persist(bolsa);
+    }
+
+    public JSONObject getPointsByClient(int id) {
+        JSONObject json = new JSONObject();
+
+        // Obtenemos la cantidad de puntos
+        Long cantPuntos = em.createQuery("SELECT sum(b.saldoPuntos) " +
+                        "FROM BolsaPuntos b " +
+                        "WHERE b.cliente.id = :id", Long.class)
+                .setParameter("id", id)
+                .getSingleResult();
+
+        // Agregar al json
+        json.put("id", id);
+        json.put("puntos", cantPuntos.intValue());
+
+        return json;
+
     }
 
     public void delete(BolsaPuntos bolsaPuntos) {

@@ -1,6 +1,9 @@
 package py.com.progweb.prueba.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -29,6 +32,13 @@ public class VencimientoPuntos implements Serializable {
 
     public VencimientoPuntos() {
     }
+
+    public VencimientoPuntos(Date fechaInicio, Date fechaFin, int duracionDias) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.duracionDias = duracionDias;
+    }
+
     public Long getId() {
         return id;
     }

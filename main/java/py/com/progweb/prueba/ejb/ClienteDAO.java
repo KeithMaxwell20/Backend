@@ -1,5 +1,6 @@
 package py.com.progweb.prueba.ejb;
 import py.com.progweb.prueba.implementations.GeneralABMFunction;
+import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.Cliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,6 +30,7 @@ public class ClienteDAO extends GeneralABMFunction<Cliente> {
             em.remove(c);
         }
     }
+
     public List<Cliente> findAll() {
         TypedQuery<Cliente> query = em.createQuery("SELECT c FROM Cliente c", Cliente.class);
         return query.getResultList();

@@ -5,6 +5,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+
+import py.com.progweb.prueba.ejb.BolsaPuntosDAO;
 import py.com.progweb.prueba.model.Cliente;
 import py.com.progweb.prueba.ejb.ClienteDAO;
 
@@ -15,6 +17,9 @@ import py.com.progweb.prueba.ejb.ClienteDAO;
 public class ClienteRest {
     @Inject
     ClienteDAO clienteDAO;
+
+    @Inject
+    BolsaPuntosDAO bolsaPuntosDAO;
 
     @GET
     public Response index() {
@@ -81,6 +86,16 @@ public class ClienteRest {
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()+e.getCause()).build();
+        }
+    }
+
+    @GET
+    @Path("/puntos-cliente/{id}")
+    public Response consultarPuntosCliente(@PathParam("id") int id) {
+        try {
+            return Response.ok().entity(bolsaPuntosDAO.getPointsByClient(id)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"Cannot calculate the client's points: " + e.getMessage() + "\" }").build();
         }
     }
 }

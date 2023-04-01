@@ -15,11 +15,15 @@ public class BolsaPuntos {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @Column(name = "fecha_asignacion")
-    private Date fechaAsignacion;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vencimiento_puntos_id")
+    private VencimientoPuntos planificacion;
 
-    @Column(name = "fecha_caducidad")
-    private Date fechaCaducidad;
+/*    @Column(name = "fecha_asignacion")
+    private Date fechaAsignacion;*/
+
+/*    @Column(name = "fecha_caducidad")
+    private Date fechaCaducidad;*/
 
     @Column(name = "puntaje_asignado")
     private int puntajeAsignado;
@@ -37,14 +41,13 @@ public class BolsaPuntos {
     public BolsaPuntos() {}
 
     //Constructor
-    public BolsaPuntos(Cliente cliente, Date fechaAsignacion, Date fechaCaducidad, int puntajeAsignado, int puntajeUtilizado, int saldoPuntos, int montoOperacion) {
+    public BolsaPuntos(Cliente cliente, VencimientoPuntos planificacion, int puntajeAsignado, int puntajeUtilizado, int saldoPuntos, int montoOperacion) {
         this.cliente = cliente;
-        this.fechaAsignacion = fechaAsignacion;
-        this.fechaCaducidad = fechaCaducidad;
         this.puntajeAsignado = puntajeAsignado;
         this.puntajeUtilizado = puntajeUtilizado;
         this.saldoPuntos = saldoPuntos;
         this.montoOperacion = montoOperacion;
+        this.planificacion = planificacion;
     }
 
 
@@ -56,7 +59,7 @@ public class BolsaPuntos {
         this.id = id;
     }
 
-    public Date getFechaAsignacion() {
+/*    public Date getFechaAsignacion() {
         return fechaAsignacion;
     }
 
@@ -70,7 +73,7 @@ public class BolsaPuntos {
 
     public void setFechaCaducidad(Date fechaCaducidad) {
         this.fechaCaducidad = fechaCaducidad;
-    }
+    }*/
 
     public int getPuntajeAsignado() {
         return puntajeAsignado;
@@ -110,4 +113,10 @@ public class BolsaPuntos {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public void setPlanificacion(VencimientoPuntos planificacion) {
+        this.planificacion = planificacion;
+    }
+
+    public VencimientoPuntos getPlanificacion() {return this.planificacion; }
 }
