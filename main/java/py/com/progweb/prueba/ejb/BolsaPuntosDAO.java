@@ -94,7 +94,14 @@ public class BolsaPuntosDAO extends GeneralABMFunction<BolsaPuntos> {
 
         // Agregar al json
         json.put("id", id);
-        json.put("puntos", cantPuntos.intValue());
+
+        // Si el query es null, significa que no tiene bolsas asignadas.
+        // Retornamos 0
+        if (cantPuntos == null) {
+            json.put("puntos", 0);
+        } else {
+            json.put("puntos", cantPuntos.intValue());
+        }
 
         return json;
 
