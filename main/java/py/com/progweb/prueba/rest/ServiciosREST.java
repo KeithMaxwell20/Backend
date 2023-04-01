@@ -34,9 +34,9 @@ public class ServiciosREST {
     public Response cargarPuntos(String jsonString) {
         try{
             bolsaPuntosDAO.save(jsonString);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.CREATED).entity("{ \"message\": \"Created successfully!\" }").build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while creating point bags: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"An error occurred while creating point bags: " + e.getMessage() + "\" }").build();
         }
     }
 
@@ -45,10 +45,10 @@ public class ServiciosREST {
     public Response usarPuntos(String jsonString) {
         try {
             return usoPuntos.usingPoints(jsonString) ?
-                    Response.status(Response.Status.CREATED).entity("Transaction accepted!").build() :
-                    Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Not enough points left for this transaction!").build();
+                    Response.status(Response.Status.CREATED).entity("{ \"message\": \"Transaction accepted!\" }").build() :
+                    Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"Not enough points left for this transaction!\" }").build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error ocurred while using points: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": " + "\"An error ocurred while using points: " + e.getMessage() + "\" }").build();
         }
     }
 
@@ -64,7 +64,7 @@ public class ServiciosREST {
             json.put("puntos", cantPuntos);
             return Response.ok(json).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error ocurred while consulting points: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{ \"message\": \"An error ocurred while consulting points: " + e.getMessage() + "\" }").build();
         }
     }
 }

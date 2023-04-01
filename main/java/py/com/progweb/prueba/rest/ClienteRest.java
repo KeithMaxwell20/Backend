@@ -45,7 +45,7 @@ public class ClienteRest {
     public Response store(Cliente cliente) {
         try{
             clienteDAO.save(cliente);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.CREATED).entity("{ \"message\": \"Created successfully!\" }").build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while listing clients: " + e.getMessage()).build();
         }
