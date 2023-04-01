@@ -51,11 +51,10 @@ public class UsoPuntosCabeceraDAO extends GeneralABMFunction<UsoPuntosCabecera> 
         // Listamos las bolsas de puntos del cliente ordenamos de fechas anteriores a fechas nuevas.
         List<BolsaPuntos> listaBolsas = em.createQuery("from BolsaPuntos b " +
                 "where b.cliente.id = :id " +
-                        "order by b.fechaAsignacion asc", BolsaPuntos.class)
+                        "order by b.planificacion.fechaInicio asc", BolsaPuntos.class)
                 .setParameter("id", idCliente.intValue())
                 .getResultList();
 
-        // TO-DO: VERIFICAR EL VENCIMIENTO DE LAS BOLSAS.
         // Procesamos las bolsas de puntos (si una bolsa no contiene suficientes puntos
         // para realizar la compra, se pasa a la siguiente bolsa)
         int cantidadRevisada = 0;
@@ -115,6 +114,16 @@ public class UsoPuntosCabeceraDAO extends GeneralABMFunction<UsoPuntosCabecera> 
 
                 }
             }
+
+            // Si se pudo usar los puntos con exito, enviamos el correo.
+            Email email = new Email();
+            String encabezado = "Uso de puntos para el canje de productos";
+            String texto = "Estimado cliente " + cliente.getNombre() + " " + cliente.getApellido() + ", con CI " +
+                    cliente.getNumeroDocumento() +
+                    ".\nSe ha registrado una transaccion en tu cuenta, usando puntos disponibles de cliente!" +
+                    "\n\nCantidad Puntos Usados: " + cantidadNecesaria +
+                    "\nItem Canjeado: " + concepto.getDescripcionConcepto();
+            email.sendEmail(cliente.getEmail(), encabezado, texto);
 
             return true;
         } else { // No es posible usar los puntos para hacer el canje
